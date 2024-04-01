@@ -4,6 +4,8 @@
 ".\objects\clock_init.o"
 ".\objects\port_init.o"
 ".\objects\lpuart_init.o"
+".\objects\display.o"
+".\objects\lpit_init.o"
 ".\objects\startup.o"
 ".\objects\startup_s32k144.o"
 ".\objects\system_s32k144.o"

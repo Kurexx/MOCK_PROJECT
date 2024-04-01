@@ -22,14 +22,23 @@ Dialog DLL:      TCM.DLL V1.46.0.0
  
 <h2>Project:</h2>
 D:\Study\FPTEmbedded\Student\Modun_EMB\LPSPI\LPSPI.uvprojx
-Project File Date:  03/29/2024
+Project File Date:  04/01/2024
 
 <h2>Output:</h2>
 *** Using Compiler 'V6.14', folder: 'C:\Keil_v5\ARM\ARMCLANG\Bin'
-Build target 'Target 1'
+Rebuild target 'Target 1'
+compiling LPIT_init.c...
+compiling Clock_init.c...
+compiling LPUART_init.c...
+compiling SPI_init.c...
+compiling Display.c...
+compiling Port_init.c...
 compiling EX1.c...
+assembling startup_S32K144.S...
+compiling startup.c...
+compiling system_S32K144.c...
 linking...
-Program Size: Code=876 RO-data=576 RW-data=0 ZI-data=3072  
+Program Size: Code=4540 RO-data=1344 RW-data=188 ZI-data=3204  
 ".\Objects\LPSPI.axf" - 0 Error(s), 0 Warning(s).
 
 <h2>Software Packages used:</h2>
@@ -59,10 +68,10 @@ Package Vendor: Keil
 
    * Component: Keil::Device:Startup:2.0.0
       Include file:  platform\devices\S32K144\startup\system_S32K144.h
-      Include file:  platform\devices\device_registers.h
+      Source file:   platform\devices\S32K144\startup\system_S32K144.c
       Source file:   platform\devices\S32K144\startup\armc\startup_S32K144.S
       Source file:   platform\devices\startup.c
-      Source file:   platform\devices\S32K144\startup\system_S32K144.c
+      Include file:  platform\devices\device_registers.h
 Build Time Elapsed:  00:00:01
 </pre>
 </body>

@@ -36,5 +36,6 @@ void LPSPI0_transmit(unsigned short SPI_data)
 {
 	while((LPSPI0_REG->SR & (1u<<0))>>0 ==0){}
 	 LPSPI0_REG->TDR = SPI_data ;
-	LPSPI0_REG->SR &= ~(1u<<0);
+		LPSPI0_REG->SR &= ~(1u<<0);
 }
+

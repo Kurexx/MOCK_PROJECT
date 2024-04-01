@@ -2,25 +2,30 @@
 #define LED_Address_bit 8
 #define LED_Data_bit    0
 
-static volatile unsigned short Seg[16] ={126           //'0'
-                          ,48           //'1'
-                          ,109          //'2'
-                          ,121          //'3'
-                          ,51           //'4'
-                          ,91           //'5'
-                          ,95           //'6'
-                          ,112          //'7'
-                          ,127          //'8'
-                          ,123          //'9'
-                          ,1            //'-'
-                          ,79           //'E'
-                          ,55           //'H'
-                          ,14           //'L'
-                          ,103          //'P'
-                          ,0            //'blank'
+
+
+static volatile unsigned short Seg[16] ={
+													 0          //'0'
+                          ,1          //'1'
+                          ,2          //'2'
+                          ,3          //'3'
+                          ,4          //'4'
+                          ,5          //'5'
+                          ,6          //'6'
+                          ,7          //'7'
+                          ,8          //'8'
+                          ,9          //'9'
+                          ,10         //'-'
+                          ,11         //'E'
+                          ,12         //'H'
+                          ,13         //'L'
+                          ,14         //'P'
+                          ,15         //'blank'
 };
 
-static volatile unsigned short Add[16]={1        //Digit 0
+static volatile unsigned short Add[14]={
+											0        //No-Op
+                     ,1        //Digit 0
                      ,2        //Digit 1
                      ,3        //Digit 2
                      ,4        //Digit 3
@@ -31,9 +36,9 @@ static volatile unsigned short Add[16]={1        //Digit 0
                      ,9        //Decode mode
                      ,10       //Intensity
                      ,11       //Scan Limit
-                     ,12       //Shutdown
-                     ,15       //Display test
+                     ,12			 //Shutdown
+										 ,15			 //Display test
                      };
 
-#define Test int ((Add[16]<<8)|(15u<<0))
+
 	

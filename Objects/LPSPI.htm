@@ -3,11 +3,11 @@
 <title>Static Call Graph - [.\Objects\LPSPI.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\Objects\LPSPI.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 6140002: Last Updated: Fri Mar 29 16:38:32 2024
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 6140002: Last Updated: Mon Apr  1 16:18:56 2024
 <BR><P>
-<H3>Maximum Stack Usage =         16 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
+<H3>Maximum Stack Usage =        256 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
-__rt_entry_main &rArr; main &rArr; LPUART1_transmit_string
+LPUART1_RxTx_IRQHandler &rArr; Check_Format &rArr; __0sscanf &rArr; __vfscanf_char &rArr; __vfscanf &rArr; _scanf_int
 <P>
 <H3>
 Mutually Recursive functions
@@ -93,8 +93,8 @@ Function Pointers
  <LI><a href="#[2]">HardFault_Handler</a> from startup_s32k144.o(.text) referenced from startup_s32k144.o(RESET)
  <LI><a href="#[22]">LPI2C0_Master_IRQHandler</a> from startup_s32k144.o(.text) referenced from startup_s32k144.o(RESET)
  <LI><a href="#[23]">LPI2C0_Slave_IRQHandler</a> from startup_s32k144.o(.text) referenced from startup_s32k144.o(RESET)
- <LI><a href="#[3a]">LPIT0_Ch0_IRQHandler</a> from startup_s32k144.o(.text) referenced from startup_s32k144.o(RESET)
- <LI><a href="#[3b]">LPIT0_Ch1_IRQHandler</a> from startup_s32k144.o(.text) referenced from startup_s32k144.o(RESET)
+ <LI><a href="#[3a]">LPIT0_Ch0_IRQHandler</a> from lpit_init.o(.text.LPIT0_Ch0_IRQHandler) referenced from startup_s32k144.o(RESET)
+ <LI><a href="#[3b]">LPIT0_Ch1_IRQHandler</a> from lpit_init.o(.text.LPIT0_Ch1_IRQHandler) referenced from startup_s32k144.o(RESET)
  <LI><a href="#[3c]">LPIT0_Ch2_IRQHandler</a> from startup_s32k144.o(.text) referenced from startup_s32k144.o(RESET)
  <LI><a href="#[3d]">LPIT0_Ch3_IRQHandler</a> from startup_s32k144.o(.text) referenced from startup_s32k144.o(RESET)
  <LI><a href="#[24]">LPSPI0_IRQHandler</a> from startup_s32k144.o(.text) referenced from startup_s32k144.o(RESET)
@@ -102,7 +102,7 @@ Function Pointers
  <LI><a href="#[26]">LPSPI2_IRQHandler</a> from startup_s32k144.o(.text) referenced from startup_s32k144.o(RESET)
  <LI><a href="#[44]">LPTMR0_IRQHandler</a> from startup_s32k144.o(.text) referenced from startup_s32k144.o(RESET)
  <LI><a href="#[29]">LPUART0_RxTx_IRQHandler</a> from startup_s32k144.o(.text) referenced from startup_s32k144.o(RESET)
- <LI><a href="#[2b]">LPUART1_RxTx_IRQHandler</a> from startup_s32k144.o(.text) referenced from startup_s32k144.o(RESET)
+ <LI><a href="#[2b]">LPUART1_RxTx_IRQHandler</a> from lpuart_init.o(.text.LPUART1_RxTx_IRQHandler) referenced from startup_s32k144.o(RESET)
  <LI><a href="#[2d]">LPUART2_RxTx_IRQHandler</a> from startup_s32k144.o(.text) referenced from startup_s32k144.o(RESET)
  <LI><a href="#[1e]">LVD_LVW_IRQHandler</a> from startup_s32k144.o(.text) referenced from startup_s32k144.o(RESET)
  <LI><a href="#[1b]">MCM_IRQHandler</a> from startup_s32k144.o(.text) referenced from startup_s32k144.o(RESET)
@@ -112,7 +112,7 @@ Function Pointers
  <LI><a href="#[4e]">PDB1_IRQHandler</a> from startup_s32k144.o(.text) referenced from startup_s32k144.o(RESET)
  <LI><a href="#[45]">PORTA_IRQHandler</a> from startup_s32k144.o(.text) referenced from startup_s32k144.o(RESET)
  <LI><a href="#[46]">PORTB_IRQHandler</a> from startup_s32k144.o(.text) referenced from startup_s32k144.o(RESET)
- <LI><a href="#[47]">PORTC_IRQHandler</a> from startup_s32k144.o(.text) referenced from startup_s32k144.o(RESET)
+ <LI><a href="#[47]">PORTC_IRQHandler</a> from port_init.o(.text.PORTC_IRQHandler) referenced from startup_s32k144.o(RESET)
  <LI><a href="#[48]">PORTD_IRQHandler</a> from startup_s32k144.o(.text) referenced from startup_s32k144.o(RESET)
  <LI><a href="#[49]">PORTE_IRQHandler</a> from startup_s32k144.o(.text) referenced from startup_s32k144.o(RESET)
  <LI><a href="#[8]">PendSV_Handler</a> from startup_s32k144.o(.text) referenced from startup_s32k144.o(RESET)
@@ -163,119 +163,157 @@ Function Pointers
  <LI><a href="#[5]">UsageFault_Handler</a> from startup_s32k144.o(.text) referenced from startup_s32k144.o(RESET)
  <LI><a href="#[20]">WDOG_EWM_IRQHandler</a> from startup_s32k144.o(.text) referenced from startup_s32k144.o(RESET)
  <LI><a href="#[88]">__main</a> from __main.o(!!!main) referenced from startup_s32k144.o(.text)
+ <LI><a href="#[8d]">_get_lc_ctype</a> from lc_ctype_c.o(locale$$code) referenced from rt_ctype_table.o(.text)
+ <LI><a href="#[8a]">_sbackspace</a> from _sgetc.o(.text) referenced from __0sscanf.o(.text)
+ <LI><a href="#[8b]">_scanf_char_input</a> from scanf_char.o(.text) referenced from scanf_char.o(.text)
+ <LI><a href="#[89]">_sgetc</a> from _sgetc.o(.text) referenced from __0sscanf.o(.text)
  <LI><a href="#[87]">init_data_bss</a> from startup.o(.text.init_data_bss) referenced from startup_s32k144.o(.text)
+ <LI><a href="#[8c]">isspace</a> from isspace.o(.text) referenced from scanf_char.o(.text)
 </UL>
 <P>
 <H3>
 Global Symbols
 </H3>
 <P><STRONG><a name="[88]"></a>__main</STRONG> (Thumb, 8 bytes, Stack size 0 bytes, __main.o(!!!main))
-<BR><BR>[Calls]<UL><LI><a href="#[89]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_entry
+<BR><BR>[Calls]<UL><LI><a href="#[8f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_entry
+<LI><a href="#[8e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__scatterload
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> startup_s32k144.o(.text)
 </UL>
-<P><STRONG><a name="[8d]"></a>__rt_lib_init</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libinit.o(.ARM.Collect$$libinit$$00000000))
-<BR><BR>[Called By]<UL><LI><a href="#[8c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_entry_li
-</UL>
-
-<P><STRONG><a name="[8a]"></a>__rt_lib_init_fp_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$00000001))
-<BR><BR>[Calls]<UL><LI><a href="#[8b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_fp_init
-</UL>
-
-<P><STRONG><a name="[9e]"></a>__rt_lib_init_alloca_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$0000002E))
-
-<P><STRONG><a name="[9f]"></a>__rt_lib_init_argv_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$0000002C))
-
-<P><STRONG><a name="[a0]"></a>__rt_lib_init_atexit_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$0000001B))
-
-<P><STRONG><a name="[a1]"></a>__rt_lib_init_clock_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$00000021))
-
-<P><STRONG><a name="[a2]"></a>__rt_lib_init_cpp_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$00000032))
-
-<P><STRONG><a name="[a3]"></a>__rt_lib_init_exceptions_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$00000030))
-
-<P><STRONG><a name="[a4]"></a>__rt_lib_init_fp_trap_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$0000001F))
-
-<P><STRONG><a name="[a5]"></a>__rt_lib_init_getenv_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$00000023))
-
-<P><STRONG><a name="[a6]"></a>__rt_lib_init_heap_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$0000000A))
-
-<P><STRONG><a name="[a7]"></a>__rt_lib_init_lc_collate_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$00000011))
-
-<P><STRONG><a name="[a8]"></a>__rt_lib_init_lc_ctype_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$00000013))
-
-<P><STRONG><a name="[a9]"></a>__rt_lib_init_lc_monetary_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$00000015))
-
-<P><STRONG><a name="[aa]"></a>__rt_lib_init_lc_numeric_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$00000017))
-
-<P><STRONG><a name="[ab]"></a>__rt_lib_init_lc_time_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$00000019))
-
-<P><STRONG><a name="[ac]"></a>__rt_lib_init_preinit_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$00000004))
-
-<P><STRONG><a name="[ad]"></a>__rt_lib_init_rand_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$0000000E))
-
-<P><STRONG><a name="[ae]"></a>__rt_lib_init_return</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$00000033))
-
-<P><STRONG><a name="[af]"></a>__rt_lib_init_signal_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$0000001D))
-
-<P><STRONG><a name="[b0]"></a>__rt_lib_init_stdio_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$00000025))
-
-<P><STRONG><a name="[b1]"></a>__rt_lib_init_user_alloc_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$0000000C))
-
-<P><STRONG><a name="[92]"></a>__rt_lib_shutdown</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libshutdown.o(.ARM.Collect$$libshutdown$$00000000))
-<BR><BR>[Called By]<UL><LI><a href="#[91]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_exit_ls
-</UL>
-
-<P><STRONG><a name="[b2]"></a>__rt_lib_shutdown_cpp_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libshutdown2.o(.ARM.Collect$$libshutdown$$00000002))
-
-<P><STRONG><a name="[b3]"></a>__rt_lib_shutdown_fp_trap_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libshutdown2.o(.ARM.Collect$$libshutdown$$00000007))
-
-<P><STRONG><a name="[b4]"></a>__rt_lib_shutdown_heap_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libshutdown2.o(.ARM.Collect$$libshutdown$$0000000F))
-
-<P><STRONG><a name="[b5]"></a>__rt_lib_shutdown_return</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libshutdown2.o(.ARM.Collect$$libshutdown$$00000010))
-
-<P><STRONG><a name="[b6]"></a>__rt_lib_shutdown_signal_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libshutdown2.o(.ARM.Collect$$libshutdown$$0000000A))
-
-<P><STRONG><a name="[b7]"></a>__rt_lib_shutdown_stdio_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libshutdown2.o(.ARM.Collect$$libshutdown$$00000004))
-
-<P><STRONG><a name="[b8]"></a>__rt_lib_shutdown_user_alloc_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libshutdown2.o(.ARM.Collect$$libshutdown$$0000000C))
-
-<P><STRONG><a name="[89]"></a>__rt_entry</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, __rtentry.o(.ARM.Collect$$rtentry$$00000000))
+<P><STRONG><a name="[8e]"></a>__scatterload</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, __scatter.o(!!!scatter))
 <BR><BR>[Called By]<UL><LI><a href="#[88]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__main
 </UL>
 
-<P><STRONG><a name="[b9]"></a>__rt_entry_presh_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, __rtentry2.o(.ARM.Collect$$rtentry$$00000002))
-
-<P><STRONG><a name="[ba]"></a>__rt_entry_sh</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, __rtentry7.o(.ARM.Collect$$rtentry$$00000007))
-
-<P><STRONG><a name="[8c]"></a>__rt_entry_li</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, __rtentry2.o(.ARM.Collect$$rtentry$$0000000A))
-<BR><BR>[Calls]<UL><LI><a href="#[8d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_lib_init
+<P><STRONG><a name="[90]"></a>__scatterload_rt2</STRONG> (Thumb, 44 bytes, Stack size unknown bytes, __scatter.o(!!!scatter), UNUSED)
+<BR><BR>[Calls]<UL><LI><a href="#[8f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_entry
 </UL>
 
-<P><STRONG><a name="[bb]"></a>__rt_entry_postsh_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, __rtentry2.o(.ARM.Collect$$rtentry$$00000009))
+<P><STRONG><a name="[bc]"></a>__scatterload_rt2_thumb_only</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, __scatter.o(!!!scatter), UNUSED)
 
-<P><STRONG><a name="[8e]"></a>__rt_entry_main</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, __rtentry2.o(.ARM.Collect$$rtentry$$0000000D))
+<P><STRONG><a name="[bd]"></a>__scatterload_null</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, __scatter.o(!!!scatter), UNUSED)
+
+<P><STRONG><a name="[91]"></a>__scatterload_copy</STRONG> (Thumb, 26 bytes, Stack size unknown bytes, __scatter_copy.o(!!handler_copy), UNUSED)
+<BR><BR>[Calls]<UL><LI><a href="#[91]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__scatterload_copy
+</UL>
+<BR>[Called By]<UL><LI><a href="#[91]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__scatterload_copy
+</UL>
+
+<P><STRONG><a name="[be]"></a>__scatterload_zeroinit</STRONG> (Thumb, 28 bytes, Stack size unknown bytes, __scatter_zi.o(!!handler_zi), UNUSED)
+
+<P><STRONG><a name="[98]"></a>__rt_lib_init</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libinit.o(.ARM.Collect$$libinit$$00000000))
+<BR><BR>[Called By]<UL><LI><a href="#[97]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_entry_li
+</UL>
+
+<P><STRONG><a name="[92]"></a>__rt_lib_init_fp_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$00000001))
+<BR><BR>[Calls]<UL><LI><a href="#[93]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_fp_init
+</UL>
+
+<P><STRONG><a name="[bf]"></a>__rt_lib_init_heap_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$0000000A))
+
+<P><STRONG><a name="[94]"></a>__rt_lib_init_lc_common</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$0000000F))
+<BR><BR>[Calls]<UL><LI><a href="#[95]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_locale
+</UL>
+
+<P><STRONG><a name="[c0]"></a>__rt_lib_init_preinit_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$00000004))
+
+<P><STRONG><a name="[c1]"></a>__rt_lib_init_rand_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$0000000E))
+
+<P><STRONG><a name="[c2]"></a>__rt_lib_init_user_alloc_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$0000000C))
+
+<P><STRONG><a name="[c3]"></a>__rt_lib_init_lc_collate_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$00000011))
+
+<P><STRONG><a name="[96]"></a>__rt_lib_init_lc_ctype_2</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$00000012))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16 + Unknown Stack Size
-<LI>Call Chain = __rt_entry_main &rArr; main &rArr; LPUART1_transmit_string
+<LI>Call Chain = __rt_lib_init_lc_ctype_2 &rArr; _get_lc_ctype &rArr; strcmp
 </UL>
-<BR>[Calls]<UL><LI><a href="#[90]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;exit
-<LI><a href="#[8f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
-</UL>
-
-<P><STRONG><a name="[bc]"></a>__rt_entry_postli_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, __rtentry2.o(.ARM.Collect$$rtentry$$0000000C))
-
-<P><STRONG><a name="[95]"></a>__rt_exit</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, rtexit.o(.ARM.Collect$$rtexit$$00000000))
-<BR><BR>[Called By]<UL><LI><a href="#[90]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;exit
+<BR>[Calls]<UL><LI><a href="#[8d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_get_lc_ctype
 </UL>
 
-<P><STRONG><a name="[91]"></a>__rt_exit_ls</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, rtexit2.o(.ARM.Collect$$rtexit$$00000003))
-<BR><BR>[Calls]<UL><LI><a href="#[92]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_lib_shutdown
+<P><STRONG><a name="[c4]"></a>__rt_lib_init_alloca_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$0000002E))
+
+<P><STRONG><a name="[c5]"></a>__rt_lib_init_argv_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$0000002C))
+
+<P><STRONG><a name="[c6]"></a>__rt_lib_init_atexit_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$0000001B))
+
+<P><STRONG><a name="[c7]"></a>__rt_lib_init_clock_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$00000021))
+
+<P><STRONG><a name="[c8]"></a>__rt_lib_init_cpp_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$00000032))
+
+<P><STRONG><a name="[c9]"></a>__rt_lib_init_exceptions_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$00000030))
+
+<P><STRONG><a name="[ca]"></a>__rt_lib_init_fp_trap_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$0000001F))
+
+<P><STRONG><a name="[cb]"></a>__rt_lib_init_getenv_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$00000023))
+
+<P><STRONG><a name="[cc]"></a>__rt_lib_init_lc_ctype_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$00000013))
+
+<P><STRONG><a name="[cd]"></a>__rt_lib_init_lc_monetary_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$00000015))
+
+<P><STRONG><a name="[ce]"></a>__rt_lib_init_lc_numeric_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$00000017))
+
+<P><STRONG><a name="[cf]"></a>__rt_lib_init_lc_time_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$00000019))
+
+<P><STRONG><a name="[d0]"></a>__rt_lib_init_return</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$00000033))
+
+<P><STRONG><a name="[d1]"></a>__rt_lib_init_signal_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$0000001D))
+
+<P><STRONG><a name="[d2]"></a>__rt_lib_init_stdio_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$00000025))
+
+<P><STRONG><a name="[9d]"></a>__rt_lib_shutdown</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libshutdown.o(.ARM.Collect$$libshutdown$$00000000))
+<BR><BR>[Called By]<UL><LI><a href="#[9c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_exit_ls
 </UL>
 
-<P><STRONG><a name="[bd]"></a>__rt_exit_prels_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, rtexit2.o(.ARM.Collect$$rtexit$$00000002))
+<P><STRONG><a name="[d3]"></a>__rt_lib_shutdown_cpp_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libshutdown2.o(.ARM.Collect$$libshutdown$$00000002))
 
-<P><STRONG><a name="[93]"></a>__rt_exit_exit</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, rtexit2.o(.ARM.Collect$$rtexit$$00000004))
-<BR><BR>[Calls]<UL><LI><a href="#[94]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_sys_exit
+<P><STRONG><a name="[d4]"></a>__rt_lib_shutdown_fp_trap_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libshutdown2.o(.ARM.Collect$$libshutdown$$00000007))
+
+<P><STRONG><a name="[d5]"></a>__rt_lib_shutdown_heap_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libshutdown2.o(.ARM.Collect$$libshutdown$$0000000F))
+
+<P><STRONG><a name="[d6]"></a>__rt_lib_shutdown_return</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libshutdown2.o(.ARM.Collect$$libshutdown$$00000010))
+
+<P><STRONG><a name="[d7]"></a>__rt_lib_shutdown_signal_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libshutdown2.o(.ARM.Collect$$libshutdown$$0000000A))
+
+<P><STRONG><a name="[d8]"></a>__rt_lib_shutdown_stdio_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libshutdown2.o(.ARM.Collect$$libshutdown$$00000004))
+
+<P><STRONG><a name="[d9]"></a>__rt_lib_shutdown_user_alloc_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libshutdown2.o(.ARM.Collect$$libshutdown$$0000000C))
+
+<P><STRONG><a name="[8f]"></a>__rt_entry</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, __rtentry.o(.ARM.Collect$$rtentry$$00000000))
+<BR><BR>[Called By]<UL><LI><a href="#[88]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__main
+<LI><a href="#[90]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__scatterload_rt2
+</UL>
+
+<P><STRONG><a name="[da]"></a>__rt_entry_presh_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, __rtentry2.o(.ARM.Collect$$rtentry$$00000002))
+
+<P><STRONG><a name="[db]"></a>__rt_entry_sh</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, __rtentry7.o(.ARM.Collect$$rtentry$$00000007))
+
+<P><STRONG><a name="[97]"></a>__rt_entry_li</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, __rtentry2.o(.ARM.Collect$$rtentry$$0000000A))
+<BR><BR>[Calls]<UL><LI><a href="#[98]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_lib_init
+</UL>
+
+<P><STRONG><a name="[dc]"></a>__rt_entry_postsh_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, __rtentry2.o(.ARM.Collect$$rtentry$$00000009))
+
+<P><STRONG><a name="[99]"></a>__rt_entry_main</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, __rtentry2.o(.ARM.Collect$$rtentry$$0000000D))
+<BR><BR>[Stack]<UL><LI>Max Depth = 40 + Unknown Stack Size
+<LI>Call Chain = __rt_entry_main &rArr; main &rArr; Enable_LED &rArr; DisplayClock &rArr; DisplayDigit
+</UL>
+<BR>[Calls]<UL><LI><a href="#[9a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
+<LI><a href="#[9b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;exit
+</UL>
+
+<P><STRONG><a name="[dd]"></a>__rt_entry_postli_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, __rtentry2.o(.ARM.Collect$$rtentry$$0000000C))
+
+<P><STRONG><a name="[a6]"></a>__rt_exit</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, rtexit.o(.ARM.Collect$$rtexit$$00000000))
+<BR><BR>[Called By]<UL><LI><a href="#[9b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;exit
+</UL>
+
+<P><STRONG><a name="[9c]"></a>__rt_exit_ls</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, rtexit2.o(.ARM.Collect$$rtexit$$00000003))
+<BR><BR>[Calls]<UL><LI><a href="#[9d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_lib_shutdown
+</UL>
+
+<P><STRONG><a name="[de]"></a>__rt_exit_prels_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, rtexit2.o(.ARM.Collect$$rtexit$$00000002))
+
+<P><STRONG><a name="[9e]"></a>__rt_exit_exit</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, rtexit2.o(.ARM.Collect$$rtexit$$00000004))
+<BR><BR>[Calls]<UL><LI><a href="#[9f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_sys_exit
 </UL>
 
 <P><STRONG><a name="[0]"></a>Reset_Handler</STRONG> (Thumb, 28 bytes, Stack size 0 bytes, startup_s32k144.o(.text))
@@ -541,12 +579,6 @@ Global Symbols
 <P><STRONG><a name="[23]"></a>LPI2C0_Slave_IRQHandler</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, startup_s32k144.o(.text))
 <BR>[Address Reference Count : 1]<UL><LI> startup_s32k144.o(RESET)
 </UL>
-<P><STRONG><a name="[3a]"></a>LPIT0_Ch0_IRQHandler</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, startup_s32k144.o(.text))
-<BR>[Address Reference Count : 1]<UL><LI> startup_s32k144.o(RESET)
-</UL>
-<P><STRONG><a name="[3b]"></a>LPIT0_Ch1_IRQHandler</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, startup_s32k144.o(.text))
-<BR>[Address Reference Count : 1]<UL><LI> startup_s32k144.o(RESET)
-</UL>
 <P><STRONG><a name="[3c]"></a>LPIT0_Ch2_IRQHandler</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, startup_s32k144.o(.text))
 <BR>[Address Reference Count : 1]<UL><LI> startup_s32k144.o(RESET)
 </UL>
@@ -568,9 +600,6 @@ Global Symbols
 <P><STRONG><a name="[29]"></a>LPUART0_RxTx_IRQHandler</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, startup_s32k144.o(.text))
 <BR>[Address Reference Count : 1]<UL><LI> startup_s32k144.o(RESET)
 </UL>
-<P><STRONG><a name="[2b]"></a>LPUART1_RxTx_IRQHandler</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, startup_s32k144.o(.text))
-<BR>[Address Reference Count : 1]<UL><LI> startup_s32k144.o(RESET)
-</UL>
 <P><STRONG><a name="[2d]"></a>LPUART2_RxTx_IRQHandler</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, startup_s32k144.o(.text))
 <BR>[Address Reference Count : 1]<UL><LI> startup_s32k144.o(RESET)
 </UL>
@@ -590,9 +619,6 @@ Global Symbols
 <BR>[Address Reference Count : 1]<UL><LI> startup_s32k144.o(RESET)
 </UL>
 <P><STRONG><a name="[46]"></a>PORTB_IRQHandler</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, startup_s32k144.o(.text))
-<BR>[Address Reference Count : 1]<UL><LI> startup_s32k144.o(RESET)
-</UL>
-<P><STRONG><a name="[47]"></a>PORTC_IRQHandler</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, startup_s32k144.o(.text))
 <BR>[Address Reference Count : 1]<UL><LI> startup_s32k144.o(RESET)
 </UL>
 <P><STRONG><a name="[48]"></a>PORTD_IRQHandler</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, startup_s32k144.o(.text))
@@ -724,92 +750,290 @@ Global Symbols
 <P><STRONG><a name="[20]"></a>WDOG_EWM_IRQHandler</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, startup_s32k144.o(.text))
 <BR>[Address Reference Count : 1]<UL><LI> startup_s32k144.o(RESET)
 </UL>
-<P><STRONG><a name="[90]"></a>exit</STRONG> (Thumb, 18 bytes, Stack size 8 bytes, exit.o(.text))
+<P><STRONG><a name="[a0]"></a>__0sscanf</STRONG> (Thumb, 52 bytes, Stack size 72 bytes, __0sscanf.o(.text))
+<BR><BR>[Stack]<UL><LI>Max Depth = 224<LI>Call Chain = __0sscanf &rArr; __vfscanf_char &rArr; __vfscanf &rArr; _scanf_int
+</UL>
+<BR>[Calls]<UL><LI><a href="#[a1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__vfscanf_char
+</UL>
+<BR>[Called By]<UL><LI><a href="#[aa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Check_Format
+</UL>
+
+<P><STRONG><a name="[a2]"></a>_scanf_int</STRONG> (Thumb, 332 bytes, Stack size 56 bytes, _scanf_int.o(.text))
+<BR><BR>[Stack]<UL><LI>Max Depth = 56<LI>Call Chain = _scanf_int
+</UL>
+<BR>[Calls]<UL><LI><a href="#[a3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_chval
+</UL>
+<BR>[Called By]<UL><LI><a href="#[a4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__vfscanf
+</UL>
+
+<P><STRONG><a name="[a3]"></a>_chval</STRONG> (Thumb, 28 bytes, Stack size 0 bytes, _chval.o(.text))
+<BR><BR>[Called By]<UL><LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_scanf_int
+</UL>
+
+<P><STRONG><a name="[a1]"></a>__vfscanf_char</STRONG> (Thumb, 24 bytes, Stack size 0 bytes, scanf_char.o(.text))
+<BR><BR>[Stack]<UL><LI>Max Depth = 152<LI>Call Chain = __vfscanf_char &rArr; __vfscanf &rArr; _scanf_int
+</UL>
+<BR>[Calls]<UL><LI><a href="#[a4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__vfscanf
+</UL>
+<BR>[Called By]<UL><LI><a href="#[a0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__0sscanf
+</UL>
+
+<P><STRONG><a name="[89]"></a>_sgetc</STRONG> (Thumb, 30 bytes, Stack size 0 bytes, _sgetc.o(.text))
+<BR>[Address Reference Count : 1]<UL><LI> __0sscanf.o(.text)
+</UL>
+<P><STRONG><a name="[8a]"></a>_sbackspace</STRONG> (Thumb, 34 bytes, Stack size 0 bytes, _sgetc.o(.text))
+<BR>[Address Reference Count : 1]<UL><LI> __0sscanf.o(.text)
+</UL>
+<P><STRONG><a name="[8c]"></a>isspace</STRONG> (Thumb, 18 bytes, Stack size 8 bytes, isspace.o(.text))
+<BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = isspace &rArr; __rt_ctype_table
+</UL>
+<BR>[Calls]<UL><LI><a href="#[a5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_ctype_table
+</UL>
+<BR>[Address Reference Count : 1]<UL><LI> scanf_char.o(.text)
+</UL>
+<P><STRONG><a name="[a4]"></a>__vfscanf</STRONG> (Thumb, 878 bytes, Stack size 96 bytes, _scanf.o(.text))
+<BR><BR>[Stack]<UL><LI>Max Depth = 152<LI>Call Chain = __vfscanf &rArr; _scanf_int
+</UL>
+<BR>[Calls]<UL><LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_scanf_int
+</UL>
+<BR>[Called By]<UL><LI><a href="#[a1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__vfscanf_char
+</UL>
+
+<P><STRONG><a name="[a5]"></a>__rt_ctype_table</STRONG> (Thumb, 16 bytes, Stack size 8 bytes, rt_ctype_table.o(.text))
+<BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = __rt_ctype_table
+</UL>
+<BR>[Calls]<UL><LI><a href="#[95]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_locale
+</UL>
+<BR>[Called By]<UL><LI><a href="#[8c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;isspace
+</UL>
+
+<P><STRONG><a name="[9b]"></a>exit</STRONG> (Thumb, 18 bytes, Stack size 8 bytes, exit.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8 + Unknown Stack Size
 <LI>Call Chain = exit
 </UL>
-<BR>[Calls]<UL><LI><a href="#[95]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_exit
+<BR>[Calls]<UL><LI><a href="#[a6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_exit
 </UL>
-<BR>[Called By]<UL><LI><a href="#[8e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_entry_main
-</UL>
-
-<P><STRONG><a name="[be]"></a>__I$use$semihosting</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, use_no_semi.o(.text), UNUSED)
-
-<P><STRONG><a name="[bf]"></a>__use_no_semihosting_swi</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, use_no_semi.o(.text), UNUSED)
-
-<P><STRONG><a name="[c0]"></a>__semihosting_library_function</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, indicate_semi.o(.text), UNUSED)
-
-<P><STRONG><a name="[94]"></a>_sys_exit</STRONG> (Thumb, 8 bytes, Stack size 0 bytes, sys_exit.o(.text))
-<BR><BR>[Called By]<UL><LI><a href="#[93]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_exit_exit
+<BR>[Called By]<UL><LI><a href="#[99]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_entry_main
 </UL>
 
-<P><STRONG><a name="[9d]"></a>LPSPI0_init_master</STRONG> (Thumb, 56 bytes, Stack size 0 bytes, spi_init.o(.text.LPSPI0_init_master))
-<BR><BR>[Called By]<UL><LI><a href="#[8f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
+<P><STRONG><a name="[95]"></a>__rt_locale</STRONG> (Thumb, 8 bytes, Stack size 0 bytes, rt_locale_intlibspace.o(.text))
+<BR><BR>[Called By]<UL><LI><a href="#[94]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_lib_init_lc_common
+<LI><a href="#[a5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_ctype_table
 </UL>
 
-<P><STRONG><a name="[9c]"></a>LPUART1_init</STRONG> (Thumb, 40 bytes, Stack size 0 bytes, lpuart_init.o(.text.LPUART1_init))
-<BR><BR>[Called By]<UL><LI><a href="#[8f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
+<P><STRONG><a name="[df]"></a>__I$use$semihosting</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, use_no_semi.o(.text), UNUSED)
+
+<P><STRONG><a name="[e0]"></a>__use_no_semihosting_swi</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, use_no_semi.o(.text), UNUSED)
+
+<P><STRONG><a name="[e1]"></a>__semihosting_library_function</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, indicate_semi.o(.text), UNUSED)
+
+<P><STRONG><a name="[bb]"></a>strcmp</STRONG> (Thumb, 124 bytes, Stack size 8 bytes, strcmpv7em.o(.text))
+<BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = strcmp
+</UL>
+<BR>[Called By]<UL><LI><a href="#[8d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_get_lc_ctype
 </UL>
 
-<P><STRONG><a name="[97]"></a>LPUART1_transmit_char</STRONG> (Thumb, 18 bytes, Stack size 0 bytes, lpuart_init.o(.text.LPUART1_transmit_char))
-<BR><BR>[Called By]<UL><LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LPUART1_transmit_string
+<P><STRONG><a name="[9f]"></a>_sys_exit</STRONG> (Thumb, 8 bytes, Stack size 0 bytes, sys_exit.o(.text))
+<BR><BR>[Called By]<UL><LI><a href="#[9e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_exit_exit
 </UL>
 
-<P><STRONG><a name="[96]"></a>LPUART1_transmit_string</STRONG> (Thumb, 42 bytes, Stack size 16 bytes, lpuart_init.o(.text.LPUART1_transmit_string))
+<P><STRONG><a name="[b0]"></a>Check_Alarm</STRONG> (Thumb, 56 bytes, Stack size 0 bytes, ex1.o(.text.Check_Alarm))
+<BR><BR>[Called By]<UL><LI><a href="#[3a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LPIT0_Ch0_IRQHandler
+</UL>
+
+<P><STRONG><a name="[a7]"></a>Check_Bright_Lv</STRONG> (Thumb, 92 bytes, Stack size 16 bytes, ex1.o(.text.Check_Bright_Lv))
+<BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = Check_Bright_Lv &rArr; DisplayDigit
+</UL>
+<BR>[Calls]<UL><LI><a href="#[a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LPSPI0_transmit
+<LI><a href="#[a9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DisplayDigit
+</UL>
+<BR>[Called By]<UL><LI><a href="#[3a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LPIT0_Ch0_IRQHandler
+</UL>
+
+<P><STRONG><a name="[aa]"></a>Check_Format</STRONG> (Thumb, 188 bytes, Stack size 24 bytes, ex1.o(.text.Check_Format))
+<BR><BR>[Stack]<UL><LI>Max Depth = 248<LI>Call Chain = Check_Format &rArr; __0sscanf &rArr; __vfscanf_char &rArr; __vfscanf &rArr; _scanf_int
+</UL>
+<BR>[Calls]<UL><LI><a href="#[a0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__0sscanf
+</UL>
+<BR>[Called By]<UL><LI><a href="#[2b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LPUART1_RxTx_IRQHandler
+</UL>
+
+<P><STRONG><a name="[ab]"></a>Check_Mode</STRONG> (Thumb, 144 bytes, Stack size 16 bytes, ex1.o(.text.Check_Mode))
+<BR><BR>[Stack]<UL><LI>Max Depth = 56<LI>Call Chain = Check_Mode &rArr; DisplayDate &rArr; DisplayDigit
+</UL>
+<BR>[Calls]<UL><LI><a href="#[ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DisplayDate
+<LI><a href="#[ac]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DisplayClock
+</UL>
+<BR>[Called By]<UL><LI><a href="#[3a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LPIT0_Ch0_IRQHandler
+</UL>
+
+<P><STRONG><a name="[b6]"></a>Clock_init</STRONG> (Thumb, 138 bytes, Stack size 0 bytes, clock_init.o(.text.Clock_init))
+<BR><BR>[Called By]<UL><LI><a href="#[9a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
+</UL>
+
+<P><STRONG><a name="[ac]"></a>DisplayClock</STRONG> (Thumb, 186 bytes, Stack size 24 bytes, display.o(.text.DisplayClock))
+<BR><BR>[Stack]<UL><LI>Max Depth = 32<LI>Call Chain = DisplayClock &rArr; DisplayDigit
+</UL>
+<BR>[Calls]<UL><LI><a href="#[a9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DisplayDigit
+</UL>
+<BR>[Called By]<UL><LI><a href="#[ae]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Enable_LED
+<LI><a href="#[ab]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Check_Mode
+</UL>
+
+<P><STRONG><a name="[ad]"></a>DisplayDate</STRONG> (Thumb, 258 bytes, Stack size 32 bytes, display.o(.text.DisplayDate))
+<BR><BR>[Stack]<UL><LI>Max Depth = 40<LI>Call Chain = DisplayDate &rArr; DisplayDigit
+</UL>
+<BR>[Calls]<UL><LI><a href="#[a9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DisplayDigit
+</UL>
+<BR>[Called By]<UL><LI><a href="#[ab]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Check_Mode
+</UL>
+
+<P><STRONG><a name="[a9]"></a>DisplayDigit</STRONG> (Thumb, 14 bytes, Stack size 8 bytes, display.o(.text.DisplayDigit))
+<BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = DisplayDigit
+</UL>
+<BR>[Calls]<UL><LI><a href="#[a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LPSPI0_transmit
+</UL>
+<BR>[Called By]<UL><LI><a href="#[ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DisplayDate
+<LI><a href="#[ac]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DisplayClock
+<LI><a href="#[a7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Check_Bright_Lv
+</UL>
+
+<P><STRONG><a name="[ae]"></a>Enable_LED</STRONG> (Thumb, 48 bytes, Stack size 8 bytes, display.o(.text.Enable_LED))
+<BR><BR>[Stack]<UL><LI>Max Depth = 40<LI>Call Chain = Enable_LED &rArr; DisplayClock &rArr; DisplayDigit
+</UL>
+<BR>[Calls]<UL><LI><a href="#[a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LPSPI0_transmit
+<LI><a href="#[ac]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DisplayClock
+</UL>
+<BR>[Called By]<UL><LI><a href="#[9a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
+</UL>
+
+<P><STRONG><a name="[3a]"></a>LPIT0_Ch0_IRQHandler</STRONG> (Thumb, 36 bytes, Stack size 8 bytes, lpit_init.o(.text.LPIT0_Ch0_IRQHandler))
+<BR><BR>[Stack]<UL><LI>Max Depth = 64<LI>Call Chain = LPIT0_Ch0_IRQHandler &rArr; Check_Mode &rArr; DisplayDate &rArr; DisplayDigit
+</UL>
+<BR>[Calls]<UL><LI><a href="#[af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Time_cal
+<LI><a href="#[ab]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Check_Mode
+<LI><a href="#[a7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Check_Bright_Lv
+<LI><a href="#[b0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Check_Alarm
+</UL>
+<BR>[Address Reference Count : 1]<UL><LI> startup_s32k144.o(RESET)
+</UL>
+<P><STRONG><a name="[3b]"></a>LPIT0_Ch1_IRQHandler</STRONG> (Thumb, 54 bytes, Stack size 0 bytes, lpit_init.o(.text.LPIT0_Ch1_IRQHandler))
+<BR>[Address Reference Count : 1]<UL><LI> startup_s32k144.o(RESET)
+</UL>
+<P><STRONG><a name="[ba]"></a>LPIT_init</STRONG> (Thumb, 58 bytes, Stack size 0 bytes, lpit_init.o(.text.LPIT_init))
+<BR><BR>[Called By]<UL><LI><a href="#[9a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
+</UL>
+
+<P><STRONG><a name="[b9]"></a>LPSPI0_init_master</STRONG> (Thumb, 56 bytes, Stack size 0 bytes, spi_init.o(.text.LPSPI0_init_master))
+<BR><BR>[Called By]<UL><LI><a href="#[9a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
+</UL>
+
+<P><STRONG><a name="[a8]"></a>LPSPI0_transmit</STRONG> (Thumb, 26 bytes, Stack size 0 bytes, spi_init.o(.text.LPSPI0_transmit))
+<BR><BR>[Called By]<UL><LI><a href="#[ae]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Enable_LED
+<LI><a href="#[a9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DisplayDigit
+<LI><a href="#[a7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Check_Bright_Lv
+</UL>
+
+<P><STRONG><a name="[2b]"></a>LPUART1_RxTx_IRQHandler</STRONG> (Thumb, 68 bytes, Stack size 8 bytes, lpuart_init.o(.text.LPUART1_RxTx_IRQHandler))
+<BR><BR>[Stack]<UL><LI>Max Depth = 256<LI>Call Chain = LPUART1_RxTx_IRQHandler &rArr; Check_Format &rArr; __0sscanf &rArr; __vfscanf_char &rArr; __vfscanf &rArr; _scanf_int
+</UL>
+<BR>[Calls]<UL><LI><a href="#[b1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gets_UART1
+<LI><a href="#[b2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LPUART1_transmit_string
+<LI><a href="#[aa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Check_Format
+</UL>
+<BR>[Address Reference Count : 1]<UL><LI> startup_s32k144.o(RESET)
+</UL>
+<P><STRONG><a name="[b8]"></a>LPUART1_init</STRONG> (Thumb, 40 bytes, Stack size 0 bytes, lpuart_init.o(.text.LPUART1_init))
+<BR><BR>[Called By]<UL><LI><a href="#[9a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
+</UL>
+
+<P><STRONG><a name="[b5]"></a>LPUART1_receive_char</STRONG> (Thumb, 14 bytes, Stack size 0 bytes, lpuart_init.o(.text.LPUART1_receive_char))
+<BR><BR>[Called By]<UL><LI><a href="#[b1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gets_UART1
+</UL>
+
+<P><STRONG><a name="[b3]"></a>LPUART1_transmit_char</STRONG> (Thumb, 18 bytes, Stack size 0 bytes, lpuart_init.o(.text.LPUART1_transmit_char))
+<BR><BR>[Called By]<UL><LI><a href="#[b2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LPUART1_transmit_string
+</UL>
+
+<P><STRONG><a name="[b2]"></a>LPUART1_transmit_string</STRONG> (Thumb, 42 bytes, Stack size 16 bytes, lpuart_init.o(.text.LPUART1_transmit_string))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = LPUART1_transmit_string
 </UL>
-<BR>[Calls]<UL><LI><a href="#[97]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LPUART1_transmit_char
+<BR>[Calls]<UL><LI><a href="#[b3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LPUART1_transmit_char
 </UL>
-<BR>[Called By]<UL><LI><a href="#[8f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
-</UL>
-
-<P><STRONG><a name="[9b]"></a>PORT_init</STRONG> (Thumb, 110 bytes, Stack size 0 bytes, port_init.o(.text.PORT_init))
-<BR><BR>[Called By]<UL><LI><a href="#[8f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
+<BR>[Called By]<UL><LI><a href="#[2b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LPUART1_RxTx_IRQHandler
+<LI><a href="#[b4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Menu
 </UL>
 
-<P><STRONG><a name="[9a]"></a>RUNmode_72MHz</STRONG> (Thumb, 30 bytes, Stack size 0 bytes, clock_init.o(.text.RUNmode_72MHz))
-<BR><BR>[Called By]<UL><LI><a href="#[8f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
+<P><STRONG><a name="[b4]"></a>Menu</STRONG> (Thumb, 300 bytes, Stack size 8 bytes, ex1.o(.text.Menu))
+<BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = Menu &rArr; LPUART1_transmit_string
+</UL>
+<BR>[Calls]<UL><LI><a href="#[b2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LPUART1_transmit_string
+</UL>
+<BR>[Called By]<UL><LI><a href="#[9a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[98]"></a>SOSC_init_8MHz</STRONG> (Thumb, 32 bytes, Stack size 0 bytes, clock_init.o(.text.SOSC_init_8MHz))
-<BR><BR>[Called By]<UL><LI><a href="#[8f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
+<P><STRONG><a name="[47]"></a>PORTC_IRQHandler</STRONG> (Thumb, 162 bytes, Stack size 0 bytes, port_init.o(.text.PORTC_IRQHandler))
+<BR>[Address Reference Count : 1]<UL><LI> startup_s32k144.o(RESET)
 </UL>
-
-<P><STRONG><a name="[99]"></a>SPLL_init_72Mhz</STRONG> (Thumb, 52 bytes, Stack size 0 bytes, clock_init.o(.text.SPLL_init_72Mhz))
-<BR><BR>[Called By]<UL><LI><a href="#[8f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
+<P><STRONG><a name="[b7]"></a>PORT_init</STRONG> (Thumb, 194 bytes, Stack size 0 bytes, port_init.o(.text.PORT_init))
+<BR><BR>[Called By]<UL><LI><a href="#[9a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
 <P><STRONG><a name="[86]"></a>SystemInit</STRONG> (Thumb, 64 bytes, Stack size 0 bytes, system_s32k144.o(.text.SystemInit))
 <BR>[Address Reference Count : 1]<UL><LI> startup_s32k144.o(.text)
 </UL>
+<P><STRONG><a name="[af]"></a>Time_cal</STRONG> (Thumb, 82 bytes, Stack size 0 bytes, display.o(.text.Time_cal))
+<BR><BR>[Called By]<UL><LI><a href="#[3a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LPIT0_Ch0_IRQHandler
+</UL>
+
+<P><STRONG><a name="[b1]"></a>gets_UART1</STRONG> (Thumb, 40 bytes, Stack size 16 bytes, lpuart_init.o(.text.gets_UART1))
+<BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = gets_UART1
+</UL>
+<BR>[Calls]<UL><LI><a href="#[b5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LPUART1_receive_char
+</UL>
+<BR>[Called By]<UL><LI><a href="#[2b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LPUART1_RxTx_IRQHandler
+</UL>
+
 <P><STRONG><a name="[87]"></a>init_data_bss</STRONG> (Thumb, 80 bytes, Stack size 0 bytes, startup.o(.text.init_data_bss))
 <BR>[Address Reference Count : 1]<UL><LI> startup_s32k144.o(.text)
 </UL>
-<P><STRONG><a name="[8f]"></a>main</STRONG> (Thumb, 76 bytes, Stack size 0 bytes, ex1.o(.text.main))
-<BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = main &rArr; LPUART1_transmit_string
+<P><STRONG><a name="[9a]"></a>main</STRONG> (Thumb, 30 bytes, Stack size 0 bytes, ex1.o(.text.main))
+<BR><BR>[Stack]<UL><LI>Max Depth = 40<LI>Call Chain = main &rArr; Enable_LED &rArr; DisplayClock &rArr; DisplayDigit
 </UL>
-<BR>[Calls]<UL><LI><a href="#[99]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SPLL_init_72Mhz
-<LI><a href="#[98]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SOSC_init_8MHz
-<LI><a href="#[9a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RUNmode_72MHz
-<LI><a href="#[9b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PORT_init
-<LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LPUART1_transmit_string
-<LI><a href="#[9c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LPUART1_init
-<LI><a href="#[9d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LPSPI0_init_master
+<BR>[Calls]<UL><LI><a href="#[b7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PORT_init
+<LI><a href="#[b4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Menu
+<LI><a href="#[b8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LPUART1_init
+<LI><a href="#[b9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LPSPI0_init_master
+<LI><a href="#[ba]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LPIT_init
+<LI><a href="#[ae]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Enable_LED
+<LI><a href="#[b6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Clock_init
 </UL>
-<BR>[Called By]<UL><LI><a href="#[8e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_entry_main
-</UL>
-
-<P><STRONG><a name="[8b]"></a>_fp_init</STRONG> (Thumb, 26 bytes, Stack size 0 bytes, fpinit.o(x$fpl$fpinit))
-<BR><BR>[Called By]<UL><LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_lib_init_fp_1
+<BR>[Called By]<UL><LI><a href="#[99]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_entry_main
 </UL>
 
-<P><STRONG><a name="[c1]"></a>__fplib_config_fpu_vfp</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, fpinit.o(x$fpl$fpinit), UNUSED)
+<P><STRONG><a name="[8d]"></a>_get_lc_ctype</STRONG> (Thumb, 44 bytes, Stack size 8 bytes, lc_ctype_c.o(locale$$code))
+<BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = _get_lc_ctype &rArr; strcmp
+</UL>
+<BR>[Calls]<UL><LI><a href="#[bb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strcmp
+</UL>
+<BR>[Called By]<UL><LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_lib_init_lc_ctype_2
+</UL>
+<BR>[Address Reference Count : 1]<UL><LI> rt_ctype_table.o(.text)
+</UL>
+<P><STRONG><a name="[93]"></a>_fp_init</STRONG> (Thumb, 26 bytes, Stack size 0 bytes, fpinit.o(x$fpl$fpinit))
+<BR><BR>[Called By]<UL><LI><a href="#[92]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_lib_init_fp_1
+</UL>
 
-<P><STRONG><a name="[c2]"></a>__fplib_config_pureend_doubles</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, fpinit.o(x$fpl$fpinit), UNUSED)
+<P><STRONG><a name="[e2]"></a>__fplib_config_fpu_vfp</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, fpinit.o(x$fpl$fpinit), UNUSED)
+
+<P><STRONG><a name="[e3]"></a>__fplib_config_pureend_doubles</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, fpinit.o(x$fpl$fpinit), UNUSED)
 <P>
 <H3>
 Local Symbols
-</H3><P>
+</H3>
+<P><STRONG><a name="[8b]"></a>_scanf_char_input</STRONG> (Thumb, 12 bytes, Stack size 0 bytes, scanf_char.o(.text))
+<BR>[Address Reference Count : 1]<UL><LI> scanf_char.o(.text)
+</UL><P>
 <H3>
 Undefined Global Symbols
 </H3><HR></body></html>

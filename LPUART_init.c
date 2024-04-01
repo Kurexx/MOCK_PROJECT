@@ -1,10 +1,16 @@
 #include ".\Header_File\LPUART.h"
 #include ".\Header_File\PCC.h"
+#include "FP.h"
 
 void LPUART1_init(void);
 void LPUART1_transmit_char(char send);
 void LPUART1_transmit_string(char data_string[]);
+char LPUART1_receive_char(void);
+void LPUART1_receive_string(void);
+char UART_receive_data[13];
+void LPUART1_RxTx_IRQHandler(void);
 
+void gets_UART1( char *string);  //Receive a character until carriage return or newline
 
 void LPUART1_init(void) /* Init. summary: 38400 baud, 1 stop bit, 8 bit format, even parity */
 {
@@ -43,5 +49,56 @@ void LPUART1_transmit_string(char data_string[])
 		LPUART1_transmit_char(data_string[i]);
 		i++;
 	}
+}
+
+char LPUART1_receive_char(void)
+{ /* Function to Receive single Char */
+	unsigned int receiver;
+	receiver = LPUART1_REG->DATA; /* Read received data*/
+	return (char)receiver;
+}
+
+void LPUART1_receive_string(void)
+{ /* Function received string */
+	volatile unsigned int i=0;
+	do
+	{ 
+		UART_receive_data[i] = LPUART1_receive_char(); /* Receive Char */
+		i++;
+	} while (UART_receive_data[i] != '\0');
+}
+
+void gets_UART1( char string[])  //Receive a character until carriage return or newline
+
+{
+
+unsigned char i=0,J=0;
+
+do
+
+{
+
+*(string+i)= LPUART1_receive_char();
+
+J = *(string+i);
+
+i++;
+
+}
+
+while((J!='\n') && (J!='\r'));
+
+i++;
+
+*(string+i) = '\0';
+
+}
+void LPUART1_RxTx_IRQHandler (void)
+{
+	LPUART1_REG->STAT |= (1u << 20);
+	//LPUART1_receive_string();
+	gets_UART1(UART_receive_data);
+	if(Check_Format(UART_receive_data))
+		LPUART1_transmit_string("RIGHT FORMAT");
 }
 

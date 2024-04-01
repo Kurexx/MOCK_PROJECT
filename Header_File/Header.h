@@ -35,3 +35,8 @@
 #ifndef LPSPI__H__
 #include "LPSPI.h"
 #endif
+
+#ifndef LPIT__H__
+#include "LPIT.h"
+#endif
+
