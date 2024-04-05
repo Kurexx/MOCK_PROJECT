@@ -1,11 +1,11 @@
 --cpu=Cortex-M4.fp.sp
-".\objects\ex1.o"
 ".\objects\spi_init.o"
 ".\objects\clock_init.o"
 ".\objects\port_init.o"
 ".\objects\lpuart_init.o"
 ".\objects\display.o"
 ".\objects\lpit_init.o"
+".\objects\main.o"
 ".\objects\startup.o"
 ".\objects\startup_s32k144.o"
 ".\objects\system_s32k144.o"

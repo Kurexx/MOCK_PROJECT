@@ -3,11 +3,11 @@
 <title>Static Call Graph - [.\Objects\LPSPI.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\Objects\LPSPI.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 6140002: Last Updated: Mon Apr  1 16:18:56 2024
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 6140002: Last Updated: Fri Apr  5 12:32:28 2024
 <BR><P>
-<H3>Maximum Stack Usage =        256 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
+<H3>Maximum Stack Usage =        280 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
-LPUART1_RxTx_IRQHandler &rArr; Check_Format &rArr; __0sscanf &rArr; __vfscanf_char &rArr; __vfscanf &rArr; _scanf_int
+__rt_entry_main &rArr; main &rArr; Check_Valid &rArr; __0sscanf &rArr; __vfscanf_char &rArr; __vfscanf &rArr; _scanf_int
 <P>
 <H3>
 Mutually Recursive functions
@@ -293,8 +293,8 @@ Global Symbols
 <P><STRONG><a name="[dc]"></a>__rt_entry_postsh_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, __rtentry2.o(.ARM.Collect$$rtentry$$00000009))
 
 <P><STRONG><a name="[99]"></a>__rt_entry_main</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, __rtentry2.o(.ARM.Collect$$rtentry$$0000000D))
-<BR><BR>[Stack]<UL><LI>Max Depth = 40 + Unknown Stack Size
-<LI>Call Chain = __rt_entry_main &rArr; main &rArr; Enable_LED &rArr; DisplayClock &rArr; DisplayDigit
+<BR><BR>[Stack]<UL><LI>Max Depth = 280 + Unknown Stack Size
+<LI>Call Chain = __rt_entry_main &rArr; main &rArr; Check_Valid &rArr; __0sscanf &rArr; __vfscanf_char &rArr; __vfscanf &rArr; _scanf_int
 </UL>
 <BR>[Calls]<UL><LI><a href="#[9a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 <LI><a href="#[9b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;exit
@@ -755,7 +755,7 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[a1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__vfscanf_char
 </UL>
-<BR>[Called By]<UL><LI><a href="#[aa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Check_Format
+<BR>[Called By]<UL><LI><a href="#[ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Check_Valid
 </UL>
 
 <P><STRONG><a name="[a2]"></a>_scanf_int</STRONG> (Thumb, 332 bytes, Stack size 56 bytes, _scanf_int.o(.text))
@@ -837,55 +837,64 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[9e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_exit_exit
 </UL>
 
-<P><STRONG><a name="[b0]"></a>Check_Alarm</STRONG> (Thumb, 56 bytes, Stack size 0 bytes, ex1.o(.text.Check_Alarm))
+<P><STRONG><a name="[b2]"></a>Check_Alarm</STRONG> (Thumb, 56 bytes, Stack size 0 bytes, main.o(.text.Check_Alarm))
 <BR><BR>[Called By]<UL><LI><a href="#[3a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LPIT0_Ch0_IRQHandler
 </UL>
 
-<P><STRONG><a name="[a7]"></a>Check_Bright_Lv</STRONG> (Thumb, 92 bytes, Stack size 16 bytes, ex1.o(.text.Check_Bright_Lv))
+<P><STRONG><a name="[a7]"></a>Check_Bright_Lv</STRONG> (Thumb, 92 bytes, Stack size 16 bytes, main.o(.text.Check_Bright_Lv))
 <BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = Check_Bright_Lv &rArr; DisplayDigit
 </UL>
-<BR>[Calls]<UL><LI><a href="#[a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LPSPI0_transmit
-<LI><a href="#[a9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DisplayDigit
+<BR>[Calls]<UL><LI><a href="#[a9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DisplayDigit
+<LI><a href="#[a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LPSPI0_transmit
 </UL>
 <BR>[Called By]<UL><LI><a href="#[3a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LPIT0_Ch0_IRQHandler
 </UL>
 
-<P><STRONG><a name="[aa]"></a>Check_Format</STRONG> (Thumb, 188 bytes, Stack size 24 bytes, ex1.o(.text.Check_Format))
-<BR><BR>[Stack]<UL><LI>Max Depth = 248<LI>Call Chain = Check_Format &rArr; __0sscanf &rArr; __vfscanf_char &rArr; __vfscanf &rArr; _scanf_int
-</UL>
-<BR>[Calls]<UL><LI><a href="#[a0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__0sscanf
-</UL>
-<BR>[Called By]<UL><LI><a href="#[2b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LPUART1_RxTx_IRQHandler
-</UL>
-
-<P><STRONG><a name="[ab]"></a>Check_Mode</STRONG> (Thumb, 144 bytes, Stack size 16 bytes, ex1.o(.text.Check_Mode))
+<P><STRONG><a name="[aa]"></a>Check_Mode</STRONG> (Thumb, 144 bytes, Stack size 16 bytes, main.o(.text.Check_Mode))
 <BR><BR>[Stack]<UL><LI>Max Depth = 56<LI>Call Chain = Check_Mode &rArr; DisplayDate &rArr; DisplayDigit
 </UL>
-<BR>[Calls]<UL><LI><a href="#[ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DisplayDate
-<LI><a href="#[ac]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DisplayClock
+<BR>[Calls]<UL><LI><a href="#[ac]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DisplayDate
+<LI><a href="#[ab]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DisplayClock
 </UL>
 <BR>[Called By]<UL><LI><a href="#[3a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LPIT0_Ch0_IRQHandler
+</UL>
+
+<P><STRONG><a name="[ad]"></a>Check_Valid</STRONG> (Thumb, 344 bytes, Stack size 48 bytes, main.o(.text.Check_Valid))
+<BR><BR>[Stack]<UL><LI>Max Depth = 272<LI>Call Chain = Check_Valid &rArr; __0sscanf &rArr; __vfscanf_char &rArr; __vfscanf &rArr; _scanf_int
+</UL>
+<BR>[Calls]<UL><LI><a href="#[a0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__0sscanf
+<LI><a href="#[ae]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Check_Valid_date
+</UL>
+<BR>[Called By]<UL><LI><a href="#[9a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
+</UL>
+
+<P><STRONG><a name="[ae]"></a>Check_Valid_date</STRONG> (Thumb, 82 bytes, Stack size 8 bytes, main.o(.text.Check_Valid_date))
+<BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = Check_Valid_date
+</UL>
+<BR>[Calls]<UL><LI><a href="#[af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LeapYearCheck
+</UL>
+<BR>[Called By]<UL><LI><a href="#[ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Check_Valid
 </UL>
 
 <P><STRONG><a name="[b6]"></a>Clock_init</STRONG> (Thumb, 138 bytes, Stack size 0 bytes, clock_init.o(.text.Clock_init))
 <BR><BR>[Called By]<UL><LI><a href="#[9a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[ac]"></a>DisplayClock</STRONG> (Thumb, 186 bytes, Stack size 24 bytes, display.o(.text.DisplayClock))
+<P><STRONG><a name="[ab]"></a>DisplayClock</STRONG> (Thumb, 186 bytes, Stack size 24 bytes, display.o(.text.DisplayClock))
 <BR><BR>[Stack]<UL><LI>Max Depth = 32<LI>Call Chain = DisplayClock &rArr; DisplayDigit
 </UL>
 <BR>[Calls]<UL><LI><a href="#[a9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DisplayDigit
 </UL>
-<BR>[Called By]<UL><LI><a href="#[ae]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Enable_LED
-<LI><a href="#[ab]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Check_Mode
+<BR>[Called By]<UL><LI><a href="#[aa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Check_Mode
+<LI><a href="#[b0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Enable_LED
 </UL>
 
-<P><STRONG><a name="[ad]"></a>DisplayDate</STRONG> (Thumb, 258 bytes, Stack size 32 bytes, display.o(.text.DisplayDate))
+<P><STRONG><a name="[ac]"></a>DisplayDate</STRONG> (Thumb, 258 bytes, Stack size 32 bytes, display.o(.text.DisplayDate))
 <BR><BR>[Stack]<UL><LI>Max Depth = 40<LI>Call Chain = DisplayDate &rArr; DisplayDigit
 </UL>
 <BR>[Calls]<UL><LI><a href="#[a9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DisplayDigit
 </UL>
-<BR>[Called By]<UL><LI><a href="#[ab]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Check_Mode
+<BR>[Called By]<UL><LI><a href="#[aa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Check_Mode
 </UL>
 
 <P><STRONG><a name="[a9]"></a>DisplayDigit</STRONG> (Thumb, 14 bytes, Stack size 8 bytes, display.o(.text.DisplayDigit))
@@ -893,16 +902,16 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LPSPI0_transmit
 </UL>
-<BR>[Called By]<UL><LI><a href="#[ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DisplayDate
-<LI><a href="#[ac]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DisplayClock
-<LI><a href="#[a7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Check_Bright_Lv
+<BR>[Called By]<UL><LI><a href="#[a7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Check_Bright_Lv
+<LI><a href="#[ac]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DisplayDate
+<LI><a href="#[ab]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DisplayClock
 </UL>
 
-<P><STRONG><a name="[ae]"></a>Enable_LED</STRONG> (Thumb, 48 bytes, Stack size 8 bytes, display.o(.text.Enable_LED))
+<P><STRONG><a name="[b0]"></a>Enable_LED</STRONG> (Thumb, 48 bytes, Stack size 8 bytes, display.o(.text.Enable_LED))
 <BR><BR>[Stack]<UL><LI>Max Depth = 40<LI>Call Chain = Enable_LED &rArr; DisplayClock &rArr; DisplayDigit
 </UL>
-<BR>[Calls]<UL><LI><a href="#[a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LPSPI0_transmit
-<LI><a href="#[ac]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DisplayClock
+<BR>[Calls]<UL><LI><a href="#[ab]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DisplayClock
+<LI><a href="#[a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LPSPI0_transmit
 </UL>
 <BR>[Called By]<UL><LI><a href="#[9a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
@@ -910,10 +919,10 @@ Global Symbols
 <P><STRONG><a name="[3a]"></a>LPIT0_Ch0_IRQHandler</STRONG> (Thumb, 36 bytes, Stack size 8 bytes, lpit_init.o(.text.LPIT0_Ch0_IRQHandler))
 <BR><BR>[Stack]<UL><LI>Max Depth = 64<LI>Call Chain = LPIT0_Ch0_IRQHandler &rArr; Check_Mode &rArr; DisplayDate &rArr; DisplayDigit
 </UL>
-<BR>[Calls]<UL><LI><a href="#[af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Time_cal
-<LI><a href="#[ab]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Check_Mode
+<BR>[Calls]<UL><LI><a href="#[aa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Check_Mode
 <LI><a href="#[a7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Check_Bright_Lv
-<LI><a href="#[b0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Check_Alarm
+<LI><a href="#[b2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Check_Alarm
+<LI><a href="#[b1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Time_cal
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> startup_s32k144.o(RESET)
 </UL>
@@ -929,45 +938,41 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[a8]"></a>LPSPI0_transmit</STRONG> (Thumb, 26 bytes, Stack size 0 bytes, spi_init.o(.text.LPSPI0_transmit))
-<BR><BR>[Called By]<UL><LI><a href="#[ae]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Enable_LED
+<BR><BR>[Called By]<UL><LI><a href="#[a7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Check_Bright_Lv
+<LI><a href="#[b0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Enable_LED
 <LI><a href="#[a9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DisplayDigit
-<LI><a href="#[a7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Check_Bright_Lv
 </UL>
 
-<P><STRONG><a name="[2b]"></a>LPUART1_RxTx_IRQHandler</STRONG> (Thumb, 68 bytes, Stack size 8 bytes, lpuart_init.o(.text.LPUART1_RxTx_IRQHandler))
-<BR><BR>[Stack]<UL><LI>Max Depth = 256<LI>Call Chain = LPUART1_RxTx_IRQHandler &rArr; Check_Format &rArr; __0sscanf &rArr; __vfscanf_char &rArr; __vfscanf &rArr; _scanf_int
-</UL>
-<BR>[Calls]<UL><LI><a href="#[b1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gets_UART1
-<LI><a href="#[b2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LPUART1_transmit_string
-<LI><a href="#[aa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Check_Format
-</UL>
+<P><STRONG><a name="[2b]"></a>LPUART1_RxTx_IRQHandler</STRONG> (Thumb, 78 bytes, Stack size 0 bytes, lpuart_init.o(.text.LPUART1_RxTx_IRQHandler))
 <BR>[Address Reference Count : 1]<UL><LI> startup_s32k144.o(RESET)
 </UL>
 <P><STRONG><a name="[b8]"></a>LPUART1_init</STRONG> (Thumb, 40 bytes, Stack size 0 bytes, lpuart_init.o(.text.LPUART1_init))
 <BR><BR>[Called By]<UL><LI><a href="#[9a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[b5]"></a>LPUART1_receive_char</STRONG> (Thumb, 14 bytes, Stack size 0 bytes, lpuart_init.o(.text.LPUART1_receive_char))
-<BR><BR>[Called By]<UL><LI><a href="#[b1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gets_UART1
+<P><STRONG><a name="[b4]"></a>LPUART1_transmit_char</STRONG> (Thumb, 32 bytes, Stack size 4 bytes, lpuart_init.o(.text.LPUART1_transmit_char))
+<BR><BR>[Stack]<UL><LI>Max Depth = 4<LI>Call Chain = LPUART1_transmit_char
+</UL>
+<BR>[Called By]<UL><LI><a href="#[b3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LPUART1_transmit_string
 </UL>
 
-<P><STRONG><a name="[b3]"></a>LPUART1_transmit_char</STRONG> (Thumb, 18 bytes, Stack size 0 bytes, lpuart_init.o(.text.LPUART1_transmit_char))
-<BR><BR>[Called By]<UL><LI><a href="#[b2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LPUART1_transmit_string
+<P><STRONG><a name="[b3]"></a>LPUART1_transmit_string</STRONG> (Thumb, 42 bytes, Stack size 16 bytes, lpuart_init.o(.text.LPUART1_transmit_string))
+<BR><BR>[Stack]<UL><LI>Max Depth = 20<LI>Call Chain = LPUART1_transmit_string &rArr; LPUART1_transmit_char
+</UL>
+<BR>[Calls]<UL><LI><a href="#[b4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LPUART1_transmit_char
+</UL>
+<BR>[Called By]<UL><LI><a href="#[9a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
+<LI><a href="#[b5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Menu
 </UL>
 
-<P><STRONG><a name="[b2]"></a>LPUART1_transmit_string</STRONG> (Thumb, 42 bytes, Stack size 16 bytes, lpuart_init.o(.text.LPUART1_transmit_string))
-<BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = LPUART1_transmit_string
-</UL>
-<BR>[Calls]<UL><LI><a href="#[b3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LPUART1_transmit_char
-</UL>
-<BR>[Called By]<UL><LI><a href="#[2b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LPUART1_RxTx_IRQHandler
-<LI><a href="#[b4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Menu
+<P><STRONG><a name="[af]"></a>LeapYearCheck</STRONG> (Thumb, 70 bytes, Stack size 0 bytes, main.o(.text.LeapYearCheck))
+<BR><BR>[Called By]<UL><LI><a href="#[ae]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Check_Valid_date
 </UL>
 
-<P><STRONG><a name="[b4]"></a>Menu</STRONG> (Thumb, 300 bytes, Stack size 8 bytes, ex1.o(.text.Menu))
-<BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = Menu &rArr; LPUART1_transmit_string
+<P><STRONG><a name="[b5]"></a>Menu</STRONG> (Thumb, 300 bytes, Stack size 8 bytes, main.o(.text.Menu))
+<BR><BR>[Stack]<UL><LI>Max Depth = 28<LI>Call Chain = Menu &rArr; LPUART1_transmit_string &rArr; LPUART1_transmit_char
 </UL>
-<BR>[Calls]<UL><LI><a href="#[b2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LPUART1_transmit_string
+<BR>[Calls]<UL><LI><a href="#[b3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LPUART1_transmit_string
 </UL>
 <BR>[Called By]<UL><LI><a href="#[9a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
@@ -982,31 +987,25 @@ Global Symbols
 <P><STRONG><a name="[86]"></a>SystemInit</STRONG> (Thumb, 64 bytes, Stack size 0 bytes, system_s32k144.o(.text.SystemInit))
 <BR>[Address Reference Count : 1]<UL><LI> startup_s32k144.o(.text)
 </UL>
-<P><STRONG><a name="[af]"></a>Time_cal</STRONG> (Thumb, 82 bytes, Stack size 0 bytes, display.o(.text.Time_cal))
+<P><STRONG><a name="[b1]"></a>Time_cal</STRONG> (Thumb, 82 bytes, Stack size 0 bytes, display.o(.text.Time_cal))
 <BR><BR>[Called By]<UL><LI><a href="#[3a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LPIT0_Ch0_IRQHandler
-</UL>
-
-<P><STRONG><a name="[b1]"></a>gets_UART1</STRONG> (Thumb, 40 bytes, Stack size 16 bytes, lpuart_init.o(.text.gets_UART1))
-<BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = gets_UART1
-</UL>
-<BR>[Calls]<UL><LI><a href="#[b5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LPUART1_receive_char
-</UL>
-<BR>[Called By]<UL><LI><a href="#[2b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LPUART1_RxTx_IRQHandler
 </UL>
 
 <P><STRONG><a name="[87]"></a>init_data_bss</STRONG> (Thumb, 80 bytes, Stack size 0 bytes, startup.o(.text.init_data_bss))
 <BR>[Address Reference Count : 1]<UL><LI> startup_s32k144.o(.text)
 </UL>
-<P><STRONG><a name="[9a]"></a>main</STRONG> (Thumb, 30 bytes, Stack size 0 bytes, ex1.o(.text.main))
-<BR><BR>[Stack]<UL><LI>Max Depth = 40<LI>Call Chain = main &rArr; Enable_LED &rArr; DisplayClock &rArr; DisplayDigit
+<P><STRONG><a name="[9a]"></a>main</STRONG> (Thumb, 106 bytes, Stack size 8 bytes, main.o(.text.main))
+<BR><BR>[Stack]<UL><LI>Max Depth = 280<LI>Call Chain = main &rArr; Check_Valid &rArr; __0sscanf &rArr; __vfscanf_char &rArr; __vfscanf &rArr; _scanf_int
 </UL>
-<BR>[Calls]<UL><LI><a href="#[b7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PORT_init
-<LI><a href="#[b4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Menu
-<LI><a href="#[b8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LPUART1_init
-<LI><a href="#[b9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LPSPI0_init_master
+<BR>[Calls]<UL><LI><a href="#[b5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Menu
+<LI><a href="#[ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Check_Valid
 <LI><a href="#[ba]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LPIT_init
-<LI><a href="#[ae]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Enable_LED
+<LI><a href="#[b0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Enable_LED
+<LI><a href="#[b3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LPUART1_transmit_string
+<LI><a href="#[b8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LPUART1_init
+<LI><a href="#[b7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PORT_init
 <LI><a href="#[b6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Clock_init
+<LI><a href="#[b9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LPSPI0_init_master
 </UL>
 <BR>[Called By]<UL><LI><a href="#[99]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_entry_main
 </UL>

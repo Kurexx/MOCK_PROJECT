@@ -8,8 +8,13 @@
 #include ".\Header_File\LPIT.h"
 #endif
 
-void PORT_init(void);
-void PORTC_IRQHandler(void);
+
+/*FUNCTION**********************************************************************
+ *
+ * Function Name : PORT_init
+ * Description   : This function will initilize PORT
+ * Implements    : PORT
+ *END**************************************************************************/
 void PORT_init(void)
 {
 //PCC
@@ -41,10 +46,17 @@ void PORT_init(void)
 // NVIC configuration
 		NVIC_ISER1 |=(1u<<33%32); //LPUART1 interrupt
 		NVIC_ISER1 |=(1u<<48%32); //LPIT0 interrupt
-		NVIC_ISER1 |=(1u<<49%32); //LPIT0 interrupt
+		NVIC_ISER1 |=(1u<<49%32); //LPIT1 interrupt
 		NVIC_ISER1 |=(1u<<61%32); //PORTC interrupt
 }
 
+
+/*FUNCTION**********************************************************************
+ *
+ * Function Name : PORTC_IRQHandler
+ * Description   : This function will handle PORT interrupt
+ * Implements    : PORT
+ *END**************************************************************************/
 void PORTC_IRQHandler(void)
 {
 	if(Display_Mode[G_mode]== ALARM_OCCUR)

@@ -1,9 +1,15 @@
 #include ".\Header_File\LPSPI.h"
 #include ".\Header_File\PCC.h"
+#include "FP.h"
 
-void LPSPI0_init_master(void);
-void LPSPI0_transmit(unsigned short SPI_data);
 
+
+/*FUNCTION**********************************************************************
+ *
+ * Function Name : LPSPI0_init_master
+ * Description   : This function will initilize SPI0
+ * Implements    : LPIT
+ *END**************************************************************************/
  void LPSPI0_init_master(void)
 {
 	unsigned int TCR_mask =((2u<<27)|(2u<<24)|(15u<<0));
@@ -32,6 +38,12 @@ void LPSPI0_transmit(unsigned short SPI_data);
 																		/* MEN=1: Module is enabled */					
 }
 
+/*FUNCTION**********************************************************************
+ *
+ * Function Name : LPSPI0_transmit
+ * Description   : This function will transmit data to device
+ * Implements    : LPIT
+ *END**************************************************************************/
 void LPSPI0_transmit(unsigned short SPI_data)
 {
 	while((LPSPI0_REG->SR & (1u<<0))>>0 ==0){}

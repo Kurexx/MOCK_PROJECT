@@ -9,10 +9,8 @@ extern void LPSPI0_transmit(unsigned short SPI_data);
 
 // LPUART
 extern void LPUART1_init(void);
-extern void LPUART1_transmit_char(char send);
-extern void LPUART1_transmit_string(char data_string[]);
-
-void gets_UART1( char *string);  //Receive a character until carriage return or newline
+extern void LPUART1_transmit_char(volatile char send);
+extern void LPUART1_transmit_string(volatile char data_string[]);
 
 
 //PORT/PCC/GPIO
@@ -37,6 +35,9 @@ extern void DisplayClock(volatile unsigned int *Clock);
 extern void Check_Mode(void);
 extern void Check_Alarm(void);
 extern void Check_Bright_Lv(void);
+
+//VALIDATION
+extern int Check_Valid(volatile char arr[]);
 extern int Check_Format(char Data[]);
 
 // GLOBAL VARIABLES
@@ -50,7 +51,7 @@ extern volatile char Display_Mode[5];
 extern volatile int Led_Bright_Lv[6];
 extern volatile int G_mode;
 extern volatile int Bright_Lv;
-extern char UART_receive_data[13];
+extern  char UART_receive_data[20];
 #define H_Y 0
 #define M_M 1
 #define S_D 2
@@ -60,3 +61,7 @@ extern char UART_receive_data[13];
 #define ALARM_OCCUR 4
 #define INVALID 0
 #define VALID 1
+extern int flag;
+
+
+extern volatile int Word_Count;

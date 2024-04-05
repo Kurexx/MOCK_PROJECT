@@ -3,10 +3,14 @@
 #include ".\Header_File\GPIO.h"
 #include "FP.h"
 
-void LPIT_init(void);
-void LPIT0_Ch0_IRQHandler(void);
-void LPIT0_Ch1_IRQHandler (void);
 volatile int Led_Toggle_Count=0;
+
+/*FUNCTION**********************************************************************
+ *
+ * Function Name : LPIT_init
+ * Description   : This function will initilize LPIT
+ * Implements    : LPIT
+ *END**************************************************************************/
 void LPIT_init(void)
 {
 	PCC->LPIT |= (PCC_PCCn_CGC_MASK | (6u << 24)); // CLK option 6 SPLL_DIV2 (36Mhz)
@@ -19,6 +23,15 @@ void LPIT_init(void)
 	
 }
 
+/*FUNCTION**********************************************************************
+ *
+ * Function Name : LPIT0_Ch0_IRQHandler
+ * Description   :These actions may include:
+Data processing: Reading data from the data register of the corresponding LPIT channel.
+Status update: Updating the status information of LPIT and the system.
+Function call: Calling 	Time_cal();Check_Bright_Lv();Check_Alarm();Check_Mode(); functions to perform specific tasks 
+ * Implements    : LPIT
+ *END**************************************************************************/
 void LPIT0_Ch0_IRQHandler(void)
 {	 
 	
@@ -29,6 +42,12 @@ void LPIT0_Ch0_IRQHandler(void)
 	Check_Mode();
 }
 
+/*FUNCTION**********************************************************************
+ *
+ * Function Name : LPIT0_Ch1_IRQHandler
+ * Description   : Toggle alarm led when handle interrupt
+ * Implements    : LPIT
+ *END**************************************************************************/
 void LPIT0_Ch1_IRQHandler (void)
 {
 		LPIT_REG->MSR |=(1u<<1);  //Clear interrupt flag

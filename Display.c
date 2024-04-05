@@ -2,12 +2,16 @@
 #include ".\Header_File\LPSPI.h"
 #include "FP.h"
 
-/*Function Prototype*/
-void Time_cal(void);
-void Enable_LED(void);
-void DisplayDigit(unsigned short Address, unsigned short Number);
-void DisplayClock(volatile unsigned int *Clock);
-
+/*FUNCTION**********************************************************************
+ *
+ * Function Name : DisplayDigit
+ * Description   : This function is designed to control the 7-segment LED. When called, 
+ the function will receive input information such as:
+Number to display: The function will use this information to determine which 
+segments on the 7-segment LED need to be turned on to display the corresponding number.
+Brightness setting: The function allows users to adjust the brightness of the 7-segment LED.
+ * Implements    : DisplayLed
+ *END**************************************************************************/
 void DisplayDigit(unsigned short Address, unsigned short Number)
 {
 	int Address_shifted = Address << LED_Address_bit;
@@ -17,6 +21,16 @@ void DisplayDigit(unsigned short Address, unsigned short Number)
 	LPSPI0_transmit((unsigned short)TimeOutput);
 }
 
+/*FUNCTION**********************************************************************
+ *
+ * Function Name : Enable_LED
+ * Description   : This function is designed to init the 7-segment LED. When called, 
+ the function will receive input information such as:
+Change to normal operation:
+Determine which segment to be displayed: 
+Init Decode mode
+ * Implements    : DisplayLed
+ *END**************************************************************************/
 void Enable_LED(void)
 {
 	LPSPI0_transmit(0xC01); // Normal operation
@@ -26,6 +40,13 @@ void Enable_LED(void)
 	DisplayClock(Time);
 }
 
+
+/*FUNCTION**********************************************************************
+ *
+ * Function Name : Time_cal
+ * Description   : This function is used for increase the time each time LPIT interrupt
+ * Implements    : LPIT_interrupt
+ *END**************************************************************************/
 void Time_cal(void)
 {
 	Time[S_D]++;
@@ -50,6 +71,12 @@ void Time_cal(void)
 	}
 }
 
+/*FUNCTION**********************************************************************
+ *
+ * Function Name : Time_cal
+ * Description   : This function is used for display the time 
+ * Implements    : Display
+ *END**************************************************************************/
 void DisplayClock(volatile unsigned int *Clock)
 {
 	DisplayDigit(Add[1], Seg[Clock[S_D] % 10]);
@@ -61,6 +88,13 @@ void DisplayClock(volatile unsigned int *Clock)
 	DisplayDigit(Add[7], Seg[Clock[H_Y] % 10]);
 	DisplayDigit(Add[8], Seg[Clock[H_Y] / 10]);
 }
+
+/*FUNCTION**********************************************************************
+ *
+ * Function Name : Time_cal
+ * Description   : This function is used for display the date 
+ * Implements    : Display
+ *END**************************************************************************/
 void DisplayDate(void)
 {
 
